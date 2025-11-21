@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import { api } from "../utils/api";
+import { useNavigate } from "react-router-dom"; 
 
 const AdminPage = () => {
+     const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -58,7 +60,11 @@ const AdminPage = () => {
     }
   };
 
-
+ const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+    window.location.reload();
+  };
 
   return (
     <div className="form-container">
@@ -117,7 +123,9 @@ const AdminPage = () => {
       ) : (
         <p>No users found.</p>
       )}
-
+ <button onClick={handleLogout} style={{ marginTop: "20px" }}>
+        Logout
+      </button>
 
     </div>
   );
